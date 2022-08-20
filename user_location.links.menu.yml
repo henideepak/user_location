@@ -1,0 +1,6 @@
+user_location.admin_config_form:
+  title: 'Admin Configration Form'
+  route_name: user_location.admin_config_form
+  description: 'A user location menu link.'
+  parent: system.admin_config_system
+  weight: 99

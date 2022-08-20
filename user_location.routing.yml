@@ -1,0 +1,9 @@
+user_location.admin_config_form:
+  path: '/admin/config/user_location/userconfig'
+  defaults:
+    _form: '\Drupal\user_location\Form\AdminconfigrationForm'
+    _title: 'Admin Configration Form'
+  requirements:
+    _permission: 'access administration pages'
+  options:
+    _admin_route: TRUE
