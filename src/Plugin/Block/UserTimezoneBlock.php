@@ -6,7 +6,6 @@ use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\user_location\Services\UserLocationServiceInterface;
-use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 
 /**
@@ -27,13 +26,6 @@ class UserTimezoneBlock extends BlockBase implements ContainerFactoryPluginInter
   protected $configFactory;
 
   /**
-   * Drupal\Core\Messenger\MessengerInterface definition.
-   *
-   * @var \Drupal\Core\Messenger\MessengerInterface
-   */
-  protected $messenger;
-
-  /**
    * Drupal\user_location\Services\UserLocationServiceInterface definition.
    *
    * @var \Drupal\user_location\Services\UserLocationServiceInterface
@@ -47,10 +39,9 @@ class UserTimezoneBlock extends BlockBase implements ContainerFactoryPluginInter
    * @param \Drupal\user_location\Services\UserLocationServiceInterface $userLocationTimezone
    * @param \Drupal\Core\Messenger\MessengerInterface $messenger
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, UserLocationServiceInterface $userLocationTimezone, MessengerInterface $messenger, ConfigFactoryInterface $configFactory) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, UserLocationServiceInterface $userLocationTimezone, ConfigFactoryInterface $configFactory) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->userLocationTimezone = $userLocationTimezone;
-    $this->messenger = $messenger;
     $this->configFactory = $configFactory;
   }
 
@@ -63,7 +54,6 @@ class UserTimezoneBlock extends BlockBase implements ContainerFactoryPluginInter
       $plugin_id, 
       $plugin_definition,
       $container->get('user_location.timezone'),
-      $container->get('messenger'),
       $container->get('config.factory')
     );
   }
@@ -87,7 +77,7 @@ class UserTimezoneBlock extends BlockBase implements ContainerFactoryPluginInter
     $build['#content']['#city'] = $config->get('city');
     $build['#content']['#country'] = $config->get('country');
     $build['#content']['#timezone'] = $this->userLocationTimezone->getTimezone();
-    $this->messenger->addStatus('Thanks Regards Deepak Bhati.');
+    $this->messenger()->addStatus('Thanks Regards Deepak Bhati.');
 
     return $build;
   }

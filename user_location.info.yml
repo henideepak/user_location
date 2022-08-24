@@ -2,4 +2,4 @@ name: 'User Location'
 type: module
 description: 'User Site location and the current time for the location.'
 core_version_requirement: ^9.2
-package: 'Custom'
+configure: user_location.admin_config_form
